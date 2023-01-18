@@ -1,0 +1,16 @@
+length gegeben	14
+columns gegeben	3
+disruption gegeben	4
+anzahl zeichen in cloumns gegeben
+
+THIS IS A TEST
+
+TI   HSESISATT
+4	5	5
+H	T	I
+S	I	S
+E	-	A
+S	-	T
+	-	T
+
+-	T	-
