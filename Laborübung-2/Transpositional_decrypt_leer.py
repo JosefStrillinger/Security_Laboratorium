@@ -290,6 +290,7 @@ def DisrColTransKey2Changed(var, index, mode):
         #Disruption Key
     
     valuesOfNormalKeys = {}
+    positionNormalKeys = {}
     valuesOfDisruptionKeys = {}
     normalKeys = []
     disruptionKeys = []
@@ -299,16 +300,76 @@ def DisrColTransKey2Changed(var, index, mode):
         disruptionKeys.append([*DisrColTransKey2Num.get()][l]) if [*DisrColTransKey2Num.get()][l] not in disruptionKeys else disruptionKeys.append([*DisrColTransKey2Num.get()][l]+str(l))
     sortedNormalKeys = sorted(normalKeys)
     sortedDisruptionKeys = sorted(disruptionKeys)
+    temp = 0
     for c in normalKeys:
         valuesOfNormalKeys[c] = sortedNormalKeys.index(c)
+        positionNormalKeys[c] = temp
+        temp += 1
         
     for c in disruptionKeys:
         valuesOfDisruptionKeys[c] = sortedDisruptionKeys.index(c)
-                
-    plain = ""#erase this line, its only purpose is to
-    #avoid an error when running the script for the first time
-    explanation = ""#erase this line, its only purpose is to
-    #avoid an error when running the script for the first time
+        
+    decypheredRows = []
+    explanationRows = []
+    lenRows = []
+    for i in range(len(DisrColTransKey2.get())):
+        decypheredRows.append([])
+        explanationRows.append([])
+        lenRows.append(0)
+    indexNormalKey = 0
+    indexExplanationKey = 0
+    indexDisruptionKey = 0
+    tempCipher = cipher
+    while not tempCipher == "":
+        if len(DisrColTransKey2Num.get()) > 1:
+            for c in range(valuesOfDisruptionKeys[disruptionKeys[indexDisruptionKey]]):
+                if tempCipher == "":
+                    break
+                lenRows[indexNormalKey]+=1
+                tempCipher = tempCipher[1:]
+                indexNormalKey = indexNormalKey + 1 if indexNormalKey < len(decypheredRows)-1 else 0
+                indexExplanationKey = indexExplanationKey + 1 if indexExplanationKey < len(explanationRows)-1 else 0
+            #indexNormalKey = indexNormalKey + 1 if indexNormalKey < len(decypheredRows)-1 else 0
+            indexExplanationKey = indexExplanationKey + 1 if indexExplanationKey < len(explanationRows)-1 else 0
+            indexDisruptionKey = indexDisruptionKey + 1 if indexDisruptionKey < len(sortedDisruptionKeys)-1 else 0
+        else:
+            break
+    
+    print(lenRows)
+    for i in range(len(decypheredRows)):
+        for j in range(lenRows[positionNormalKeys[sortedNormalKeys[i]]]):
+            if cipher == "":
+                    break
+            decypheredRows[positionNormalKeys[sortedNormalKeys[i]]].append(cipher[0])
+            explanationRows[positionNormalKeys[sortedNormalKeys[i]]].append(cipher[0])
+            cipher = cipher[1:]
+    
+    print(decypheredRows)
+    indexNormalKey = 0
+    indexExplanationKey = 0
+    indexDisruptionKey = 0
+    plain = ""
+    for i in range(sum(lenRows)):
+        for c in range(valuesOfDisruptionKeys[disruptionKeys[indexDisruptionKey]]):
+            if decypheredRows[indexNormalKey] == []:
+                break
+            plain += decypheredRows[indexNormalKey][0]
+            decypheredRows[indexNormalKey].pop(0)
+            indexNormalKey = indexNormalKey + 1 if indexNormalKey < len(decypheredRows)-1 else 0
+            indexExplanationKey = indexExplanationKey + 1 if indexExplanationKey < len(explanationRows)-1 else 0
+        if not decypheredRows[indexNormalKey] == []:
+            decypheredRows[indexNormalKey].pop(0)
+        indexNormalKey = indexNormalKey + 1 if indexNormalKey < len(decypheredRows)-1 else 0
+        indexExplanationKey = indexExplanationKey + 1 if indexExplanationKey < len(explanationRows)-1 else 0
+        indexDisruptionKey = indexDisruptionKey + 1 if indexDisruptionKey < len(sortedDisruptionKeys)-1 else 0
+    
+    explanation = "Keyword: " + DisrColTransKey2.get() + "\nDisruption Key: " + DisrColTransKey2Num.get() + "\n______________________________\n"
+    for i in range(max([len(i) for i in explanationRows])):
+        for j in range(len(explanationRows)):
+            explanation += str(explanationRows[j][0]) + "\t" if not explanationRows[j] == [] else "  "
+            explanationRows[j].pop(0) if not explanationRows[j] == [] else None
+        explanation += "\n"
+        
     TextPlain.insert("1.0", plain)
     TextExplanation.insert("1.0", explanation)
 

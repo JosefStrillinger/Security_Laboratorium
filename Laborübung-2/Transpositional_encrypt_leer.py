@@ -311,23 +311,24 @@ def DisrColTransKey2Changed(var, index, mode):
     indexDisruptionKey = 0
     while not plain == "":
         if len(DisrColTransKey2Num.get()) > 1:
-            for c in range(valuesOfDisruptionKeys[sortedDisruptionKeys[indexDisruptionKey]]):
+            for c in range(valuesOfDisruptionKeys[disruptionKeys[indexDisruptionKey]]):
                 if plain == "":
                     break
-                print(c)
                 cypheredRows[indexNormalKey].append(plain[0])
                 explanationRows[indexExplanationKey].append(plain[0])
                 plain = plain[1:]
                 indexNormalKey = indexNormalKey + 1 if indexNormalKey < len(cypheredRows)-1 else 0
                 indexExplanationKey = indexExplanationKey + 1 if indexExplanationKey < len(explanationRows)-1 else 0
+            cypheredRows[indexNormalKey].append(" ")
             indexNormalKey = indexNormalKey + 1 if indexNormalKey < len(cypheredRows)-1 else 0
-            explanationRows[indexExplanationKey].append("")
+            explanationRows[indexExplanationKey].append(" ")
             indexExplanationKey = indexExplanationKey + 1 if indexExplanationKey < len(explanationRows)-1 else 0
             indexDisruptionKey = indexDisruptionKey + 1 if indexDisruptionKey < len(sortedDisruptionKeys)-1 else 0
         else:
             break
         
     cipher = ""
+    print(cypheredRows)
     for i in range(len(cypheredRows)):
         for c in cypheredRows[normalKeys.index(sortedNormalKeys[i])]:
             cipher += c
