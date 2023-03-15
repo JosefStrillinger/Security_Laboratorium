@@ -1,0 +1,5 @@
+Die Häufigkeitsanalyse dient der Entzifferung von Geheimtexten ohne bekannten Schlüssel. Die einzelnen Buchstaben werden dabei gezählt und ihre Häufigkeit notiert, meist in Prozent, also relativ zur Gesamtzahl der Buchstaben (Buchstabenhäufigkeit).
+
+Nun kann aufgrund der spezifischen Häufigkeit spezieller Buchstaben in einer Sprache, das E beispielsweise kommt in der deutschen Sprache mit rund 17 % mit Abstand am häufigsten vor, auf das verwendete Alphabet geschlossen werden. Kommt in einer Nachricht also beispielsweise der ansonsten recht seltene Buchstabe Q mit etwa 17 % vor, so liegt der Schluss nahe, dass Q in dieser Verschlüsselung für das E steht. Falls mehrere Möglichkeiten der Zuordnung bestehen, kann man die gleiche Vorgehensweise zusätzlich auch auf Bigramme, also Buchstabenpaarungen, anwenden.
+
+Da die Genauigkeit der Häufigkeit mit der Länge einer Nachricht steigt, ist eine lange Nachricht deutlich einfacher zu entschlüsseln als eine kurze. Dies gilt übrigens für die meisten kryptoanalytischen Verfahren. 
